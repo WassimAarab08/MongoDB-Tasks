@@ -1,15 +1,11 @@
-use ("anime")
+use('anime');
 //1. Crea una colecci ́on nueva llamada armas (simplemente el comando de creaci ́on, sin insertar datos).
 //  db.createCollection("armas")
 //  db.createCollection("anime_personaje")
 
-
-
-
-
 // //Inserta un  ́unico personaje nuevo: “Tanjiro Kamado” del anime “Demon Slayer”, con poder 4000 y campo
 // //es humano: true.
- 
+
 // db.anime_personaje.insertOne({
 //   nombre :"Tanjiro Kamado",
 //   anime:" Demon Slayer",
@@ -20,7 +16,6 @@ use ("anime")
 // //Inserta estos dos personajes a la vez: “Freezer” (Dragon Ball, poder 8000, humano false) y “Sasuke Uchiha”
 // //(Naruto, poder 6900, humano true).
 
- 
 // db.anime_personaje.insertMany([{
 //   nombre :"Freezer",
 //   anime:"Dragon Ball",
@@ -34,7 +29,6 @@ use ("anime")
 //   poder:6900,
 //   es_humano:true
 // }])
-
 
 // // 4. Muestra todos los personajes de la colecci ́on para verificar los datos.
 
@@ -52,7 +46,6 @@ use ("anime")
 // 8. Muestra todos los personajes, pero proyectando (visualizando) solo los campos nombre y poder (recuerda que
 // el id aparecer ́a por defecto).
 // db.anime_personaje.find({},{nombre:1,poder:1})
-
 
 // 9. Muestra todos los personajes, visualizando nombre y anime, pero ocultando expl ́ıcitamente el id.
 // db.anime_personaje.find({},{nombre:1,anime:1,_id:0})
@@ -74,28 +67,6 @@ use ("anime")
 
 // 15. Borra todos los documentos restantes para dejar la colecci ́on vac ́ıa.
 // db.anime_personaje.deleteMany({})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // db.anime_personaje.insertMany([
 //   {
