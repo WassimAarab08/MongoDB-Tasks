@@ -12,6 +12,7 @@ use("Universo");
 // 4. Encuentra objetos que sean de tipo Planeta y que adem ́as tengan una masa indice mayor a 50.
 
 // db.objetos_espaciales.find({$and :[{tipo:"Planeta"},{masa_indice:{$gt:50}}]})
+// db.objetos_espaciales.find({tipo:"Planeta", masa_indice:{$gt:50}})
 
 // 5. Muestra los 3 objetos mas lejanos a la Tierra, ordenados de mayor a menor distancia.
 // db.objetos_espaciales.find({}).sort({distancia_tierra_km:-1}).limit(3)
