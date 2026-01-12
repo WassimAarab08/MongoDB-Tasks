@@ -64,7 +64,25 @@ db.objetos_espaciales
 // Borra de forma permanente cualquier documento cuyo estado sea "Destruido".
 
 
+// Encuentra todos los objetos cuyo tipo sea "Estrella" y cuyo sistema NO sea "Sistema Solar", O que tengan una masa_indice superior a 100,000.
 
+// Actualiza el registro con nombre "Neptuno" para sustituir el elemento "Proteo" por "Hipocampo" dentro del array lunas_principales.
+
+// Identifica aquellos documentos donde el array lunas_principales tenga exactamente 3 elementos.
+
+// Añade un objeto llamado mantenimiento_info (con un subcampo fecha_revision: "2025-01-01") a todos los documentos con estado "Activo".
+
+// Filtra los objetos que tengan en su campo caracteristicas los valores "Hielo" Y "Gueiseres" simultáneamente, o cuyo distancia_tierra_km sea mayor a 50,000,000,000,000.
+
+// Busca objetos cuyo nombre empiece por la letra "B" o "S" y que además tengan una masa_indice superior a 1.
+
+// Actualiza los documentos de tipo "Estrella" que no tengan el campo sistema, estableciendo dicho campo como "Desconocido".
+
+// Localiza objetos que tengan al menos un elemento en el array lunas_principales cuyo texto comience por la letra "C".
+
+// Muestra los objetos con misiones_exitosas mayor a 0, ordenados por tipo (descendente) y luego por distancia_tierra_km (ascendente).
+
+// Elimina los registros cuyo tipo sea "Satelite Artificial" o "Telescopio Espacial" y cuyo año de lanzamiento sea anterior al 2000.
 
 
 
