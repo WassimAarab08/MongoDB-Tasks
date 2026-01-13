@@ -39,7 +39,7 @@ use("Universo");
 // Suma una unidad al valor del campo reparaciones en el objeto cuyo nombre es "Hubble".
 
 // db.objetos_espaciales.updateOne({nombre:"Hubble"},{$inc:{reparaciones:1}})
- db.objetos_espaciales.find({tipo:"Rov2er"})
+ db.objetos_espaciales.find({estado:"Activo1"})
 
 // Inserta el valor "Atmosfera de Nitrogeno" al final del array caracteristicas en el documento de "Pluton".
 //  db.objetos_espaciales.updateOne({nombre:"Pluton"},{$push:{caracteristicas:"Atmosfera de Nitrogeno"}})
@@ -65,32 +65,42 @@ use("Universo");
 
 
 // Muestra el campo nombre de los objetos saltando los 5 primeros resultados y limitando la salida a los siguientes 5.
-
-
+// db.objetos_espaciales.find({},{nombre:1,_id:0}).skip(5).limit(5)
+// db.objetos_espaciales.find({estado:"Destruido"})
 
 
 // Borra de forma permanente cualquier documento cuyo estado sea "Destruido".
+// db.objetos_espaciales.deleteMany({estado:"Destruido"})
 
 
 // Encuentra todos los objetos cuyo tipo sea "Estrella" y cuyo sistema NO sea "Sistema Solar", O que tengan una masa_indice superior a 100,000.
+// db.objetos_espaciales.find({tipo:"Estrella",$or:[{sistema:{$ne:"Sistema Solar"}} , {masa_indice:{$gt:100000}}]})
+
 
 // Actualiza el registro con nombre "Neptuno" para sustituir el elemento "Proteo" por "Hipocampo" dentro del array lunas_principales.
+// db.objetos_espaciales.updateOne(
+//     { nombre: "Neptuno", "lunas_principales": "Proteo" },
+//     { $set: { "lunas_principales.$": "Hipocampo" } }
+// )
+
+
 
 // Identifica aquellos documentos donde el array lunas_principales tenga exactamente 3 elementos.
+// db.objetos_espaciales.find({ lunas_principales: { $size: 3 } })
+
 
 // Añade un objeto llamado mantenimiento_info (con un subcampo fecha_revision: "2025-01-01") a todos los documentos con estado "Activo".
+// db.objetos_espaciales.updateMany({estado:"Activo"},{$set:{fecha_revision: "2025-01-01"}})
+
 
 // Filtra los objetos que tengan en su campo caracteristicas los valores "Hielo" Y "Gueiseres" simultáneamente, o cuyo distancia_tierra_km sea mayor a 50,000,000,000,000.
+// db.objetos_espaciales.find({
+//     $or: [
+//         { caracteristicas: { $all: ["Hielo", "Gueiseres"] } },
+//         { distancia_tierra_km: { $gt: 50000000000000 } }
+//     ]
+// })
 
-// Busca objetos cuyo nombre empiece por la letra "B" o "S" y que además tengan una masa_indice superior a 1.
-
-// Actualiza los documentos de tipo "Estrella" que no tengan el campo sistema, estableciendo dicho campo como "Desconocido".
-
-// Localiza objetos que tengan al menos un elemento en el array lunas_principales cuyo texto comience por la letra "C".
-
-// Muestra los objetos con misiones_exitosas mayor a 0, ordenados por tipo (descendente) y luego por distancia_tierra_km (ascendente).
-
-// Elimina los registros cuyo tipo sea "Satelite Artificial" o "Telescopio Espacial" y cuyo año de lanzamiento sea anterior al 2000.
 
 
 
