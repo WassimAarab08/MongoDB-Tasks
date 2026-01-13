@@ -39,27 +39,35 @@ use("Universo");
 // Suma una unidad al valor del campo reparaciones en el objeto cuyo nombre es "Hubble".
 
 // db.objetos_espaciales.updateOne({nombre:"Hubble"},{$inc:{reparaciones:1}})
- db.objetos_espaciales.find({nombre:"Neptuno1"})
+ db.objetos_espaciales.find({tipo:"Rov2er"})
 
 // Inserta el valor "Atmosfera de Nitrogeno" al final del array caracteristicas en el documento de "Pluton".
-
 //  db.objetos_espaciales.updateOne({nombre:"Pluton"},{$push:{caracteristicas:"Atmosfera de Nitrogeno"}})
 
 // Elimina definitivamente el campo descubierto del documento cuyo nombre es "Neptuno".
-
 // db.objetos_espaciales.updateOne({nombre:"Neptuno"},{$unset:{descubierto:""}})
 
+
 // Encuentra los objetos que tengan un valor en el campo lunas_conocidas comprendido entre 3 y 10.
-db.objetos_espaciales
+// db.objetos_espaciales.find({lunas_conocidas:{$gte:3,$lte:10}})
+
 // Muestra todos los registros cuyo tipo NO sea "Planeta", asegurándote de que la salida sea legible.
+// db.objetos_espaciales.find({tipo:{$ne:"Planeta"}})
 
 // Actualiza masivamente todos los documentos cuyo tipo sea "Rover" para que su estado pase a ser "En espera".
+// db.objetos_espaciales.updateMany({tipo:"Rover"},{$set:{estado:"En espera"}})
 
 // Busca aquellos objetos cuyo campo distancia_tierra_km sea menor a 1,000.
+// db.objetos_espaciales.find({distancia_tierra_km:{$lt:1000}})
 
 // Encuentra objetos que tengan "Anillos" en sus caracteristicas, pero cuyo nombre NO sea "Saturno".
+// db.objetos_espaciales.find({caracteristicas:{$in:["Anillos"]},nombre:{$ne:"Saturno"}})
+
 
 // Muestra el campo nombre de los objetos saltando los 5 primeros resultados y limitando la salida a los siguientes 5.
+
+
+
 
 // Borra de forma permanente cualquier documento cuyo estado sea "Destruido".
 
