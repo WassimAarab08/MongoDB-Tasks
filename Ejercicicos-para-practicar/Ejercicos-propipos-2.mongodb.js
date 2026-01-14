@@ -65,11 +65,12 @@ db.rb.find({ediciones:{$size:4}})
 
 // db.rb.updateOne({titulo:"1984"},{$pull:{generos:"Politica"}})
 // Renombrar campo: Para unificar criterios, cambia el nombre del campo "paginas" por "extension_paginas" en todos los documentos de la colección.
-db.rb.updateMany({},{$rename:{"paginas":"extension_paginas"}})
+// db.rb.updateMany({},{$rename:{"paginas":"extension_paginas"}})
 // Ordenación compuesta: Muestra todos los documentos ordenados primero por el campo "tipo" (ascendente) y, en caso de empate, por el campo "año_publicacion" (descendente)
-db.rb.find({}).sort({tipo:1,año_publicacion:-1})
+// db.rb.find({}).sort({tipo:1,año_publicacion:-1})
 
 
+db.rb.find({'co_autor.edad':"22"})
 
 
 
