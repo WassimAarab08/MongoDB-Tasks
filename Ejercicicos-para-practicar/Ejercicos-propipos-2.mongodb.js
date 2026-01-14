@@ -33,28 +33,41 @@ db.rb.find({}).sort({titulo:1}).skip(1).limit(2)
 
 // Eliminación: El recurso "National Geographic - Enero" ya no está en el catálogo. Elimina su documento de la base de datos usando su "titulo".
 
-db.rb.deleteOne({titulo:"National Geographic - Enero"})
+// db.rb.deleteOne({titulo:"National Geographic - Enero"})
 
-// Expresiones regulares: Encuentra todos los recursos cuyo campo "titulo" comience por la palabra "The".
+
 
 // Existencia de campos: Busca únicamente los documentos que posean el campo "ediciones", sin importar su contenido. Se aplica sobre el campo "ediciones".
 
+db.rb.find({ediciones:{$exists:true}})
+
 // Rango de fechas: Encuentra los recursos que fueron publicados entre los años 2000 y 2015, ambos inclusive, actuando sobre el campo "año_publicacion".
+
+db.rb.find({año_publicacion:{$gte:2000,$lte:2015}})
 
 // Negación lógica: Queremos ver contenido que no sean libros. Busca todos los documentos donde el campo "tipo" NO sea "Libro".
 
+db.rb.find({tipo:{$ne:"Libro"}})
+
 // Operador OR: Localiza los documentos cuyo campo "tipo" sea "Revista" o cuyo campo "tipo" sea "Audiobook".
+
+db.rb.find({tipo:{$in:["Revista","Audiobook"]}})
 
 // Tamaño exacto de array: Encuentra el libro que tiene exactamente 4 valores registrados en su campo "ediciones".
 
+db.rb.find({ediciones:{$size:4}})
+
 // Eliminar campo específico: En el documento de "Atomic Habits", el campo "lectura_media_dias" ya no es relevante. Elimina este campo del documento.
+
+// db.rb.updateOne({titulo:"Atomic Habits"},{$unset:{lectura_media_dias:""}})
 
 // Eliminar de un array: Resulta que "1984" ya no se categoriza como "Politica" en este sistema. Elimina ese valor específico del campo "generos".
 
+// db.rb.updateOne({titulo:"1984"},{$pull:{generos:"Politica"}})
 // Renombrar campo: Para unificar criterios, cambia el nombre del campo "paginas" por "extension_paginas" en todos los documentos de la colección.
-
+db.rb.updateMany({},{$rename:{"paginas":"extension_paginas"}})
 // Ordenación compuesta: Muestra todos los documentos ordenados primero por el campo "tipo" (ascendente) y, en caso de empate, por el campo "año_publicacion" (descendente)
-
+db.rb.find({}).sort({tipo:1,año_publicacion:-1})
 
 
 
