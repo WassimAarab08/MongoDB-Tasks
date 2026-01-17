@@ -39,11 +39,11 @@ db.rb.find({}).sort({titulo:1}).skip(1).limit(2)
 
 // Existencia de campos: Busca únicamente los documentos que posean el campo "ediciones", sin importar su contenido. Se aplica sobre el campo "ediciones".
 
-db.rb.find({ediciones:{$exists:true}})
+// db.rb.find({ediciones:{$exists:true}})
 
 // Rango de fechas: Encuentra los recursos que fueron publicados entre los años 2000 y 2015, ambos inclusive, actuando sobre el campo "año_publicacion".
 
-db.rb.find({año_publicacion:{$gte:2000,$lte:2015}})
+// db.rb.find({año_publicacion:{$gte:2000,$lte:2015}})
 
 // Negación lógica: Queremos ver contenido que no sean libros. Busca todos los documentos donde el campo "tipo" NO sea "Libro".
 
