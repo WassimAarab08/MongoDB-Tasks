@@ -1,6 +1,9 @@
-// use('juegos')
+use("juegos");
 
 // 1. Muestra el videojuego con el tercer rating m ́as alto. No puedes seleccionarlo mirando el id.
+
+db.videogames.aggregate([{ $sort: { rating: -1 } }, { $limit: 1 }]);
+
 // 2. Analiza el siguiente output y crea un m ́etodo usando agregaciones que produzca la misma salida. Averiguar
 // qu ́e se est ́a imprimiendo es parte del ejercicio.
 // [
@@ -9,6 +12,9 @@
 // "totalPlatforms": 5
 // }
 // ]
+
+db.videogames.aggregate([{}]);
+
 // 3. Muestra el precio promedio de los videojuegos por g ́enero. Considera que un videojuego puede tener m ́ultiples
 // g ́eneros (usa $unwind). El resultado debe mostrar el g ́enero y el precio promedio.
 // 4. Encuentra todos los videojuegos desarrollados por empresas de “Japan” y muestra  ́unicamente el t ́ıtulo del
