@@ -13,15 +13,80 @@ db.videogames.aggregate([{ $sort: { rating: -1 } }, { $limit: 1 }]);
 // }
 // ]
 
-db.videogames.aggregate([{}]);
+db.videogames.aggregate([
+  { $match: { _id: "vg_005" } },
+  { $project: { _id: 1, totalPlatforms: { $size: "$platforms" } } },
+]);
 //
 // 3. Muestra el precio promedio de los videojuegos por g ́enero. Considera que un videojuego puede tener m ́ultiples
 // g ́eneros (usa $unwind). El resultado debe mostrar el g ́enero y el precio promedio.
+
+db.videogames.aggregate([
+  {
+    $unwind: {
+      path: "$genre",
+    },
+  },
+  {
+    $group: {
+      _id: "$genre",
+      accumulatorN: { $avg: "$price" },
+    },
+  },
+]);
+
 // 4. Encuentra todos los videojuegos desarrollados por empresas de “Japan” y muestra  ́unicamente el t ́ıtulo del
 // juego y el nombre del desarrollador.
+
+db.videogames.aggregate([
+  {
+    $match: {
+      "developer.country": "Japan",
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      title: 1,
+      nombre_desarollador: "$developer.name",
+    },
+  },
+]);
+
 // 5. Calcula el n ́umero total de copias vendidas por cada publisher. Ordena el resultado de mayor a menor.
+
+db.videogames.aggregate([
+  {
+    $group: {
+      _id: "$publisher",
+      numero_copias_vendidas: { $sum: "$copiesSold" },
+    },
+  },
+  {
+    $sort: {
+      numero_copias_vendidas: -1,
+    },
+  },
+]);
+
 // 6. Muestra los videojuegos que tengan un rating superior a 90 y que hayan sido lanzados despu ́es del a ̃no 2016.
 // Muestra solo el t ́ıtulo, rating y a ̃no de lanzamiento.
+
+db.videogames.aggregate([
+  {
+    $match: {
+      rating: { $gt: 90 },
+      releaseYear: { $gt: 2016 },
+    },
+  },{
+    $project: {
+      _id:0,
+      title:1,
+      rating:1,
+      releaseYear:1
+    }
+  }
+]);
 // 7. Agrupa los videojuegos por pa ́ıs del desarrollador y calcula el promedio de copias vendidas por cada pa ́ıs.
 // Ordena por promedio descendente.
 // 8. Encuentra el videojuego m ́as vendido de cada g ́enero. El resultado debe mostrar el g ́enero, el t ́ıtulo del juego
