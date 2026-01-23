@@ -14,7 +14,7 @@ db.videogames.aggregate([{ $sort: { rating: -1 } }, { $limit: 1 }]);
 // ]
 
 db.videogames.aggregate([{}]);
-
+//
 // 3. Muestra el precio promedio de los videojuegos por g ́enero. Considera que un videojuego puede tener m ́ultiples
 // g ́eneros (usa $unwind). El resultado debe mostrar el g ́enero y el precio promedio.
 // 4. Encuentra todos los videojuegos desarrollados por empresas de “Japan” y muestra  ́unicamente el t ́ıtulo del
