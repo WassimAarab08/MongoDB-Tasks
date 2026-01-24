@@ -78,29 +78,127 @@ db.videogames.aggregate([
       rating: { $gt: 90 },
       releaseYear: { $gt: 2016 },
     },
-  },{
+  },
+  {
     $project: {
-      _id:0,
-      title:1,
-      rating:1,
-      releaseYear:1
-    }
-  }
+      _id: 0,
+      title: 1,
+      rating: 1,
+      releaseYear: 1,
+    },
+  },
 ]);
 // 7. Agrupa los videojuegos por pa ́ıs del desarrollador y calcula el promedio de copias vendidas por cada pa ́ıs.
 // Ordena por promedio descendente.
+db.videogames.aggregate([
+  {
+    $group: {
+      _id: "$developer.country",
+      promedio_copias: { $avg: "$copiesSold" },
+    },
+  },
+  {
+    $sort: {
+      promedio_copias: 1,
+    },
+  },
+]);
 // 8. Encuentra el videojuego m ́as vendido de cada g ́enero. El resultado debe mostrar el g ́enero, el t ́ıtulo del juego
 // y las copias vendidas. (Pista: usa $unwind, $sort y $group con $first)
+
+db.videogames.aggregate([
+  {
+    $unwind: {
+      path: "$genre",
+    },
+  },
+  {
+    $sort: {
+      copiesSold: -1,
+    },
+  },
+  {
+    $group: {
+      _id: "$genre",
+      titulo: { $first: "$title" },
+      cantidad_ventas: { $first: "$copiesSold" },
+    },
+  },
+]);
+
 // 9. Muestra los desarrolladores que han creado m ́as de un videojuego en la colecci ́on. Muestra el nombre del
 // desarrollador y la cantidad de juegos.
+
+db.videogames.aggregate([
+  {
+    $group: {
+      _id: "$developer.name",
+      numero_juegos: { $sum: 1 },
+    },
+  },
+  {
+    $match: {
+      numero_juegos: { $gt: 1 },
+    },
+  },
+]);
 // 10. Calcula el precio total que costar ́ıa comprar todos los videojuegos de cada plataforma. Considera que un juego
 // puede estar en m ́ultiples plataformas.
+
+db.videogames.aggregate([
+  {
+    $unwind: {
+      path: "$platforms",
+    },
+  },
+  {
+    $group: {
+      _id: "$platforms",
+      precio: { $sum: "$price" },
+    },
+  },
+]);
+
 // 11. Encuentra los videojuegos con un precio inferior a 30 y que tengan al menos 2 premios. Muestra el t ́ıtulo, precio
 // y n ́umero de premios.
+
+db.videogames.aggregate([
+  {
+    $match: {
+      price: { $lt: 30 },
+      "awards.1": { $exists: true },
+    },
+  },
+
+  {
+    $project: {
+      title: 1,
+      price: 1,
+      premios: { $size: "$awards" },
+    },
+  },
+]);
 // 12. Muestra el a ̃no de lanzamiento con mayor n ́umero de videojuegos publicados. El resultado debe mostrar el a ̃no
 // y la cantidad de juegos.
+db.videogames.aggregate([
+  {
+    $group: {
+      _id: releaseYear,
+      total: { $sum: 1 },
+    },
+  },
+  {
+    $sort: {
+      releaseYear: -1,
+    },
+  },
+  {
+    $limit: 1,
+  },
+]);
 // 13. Calcula el rating promedio de los videojuegos desarrollados por empresas de cada pa ́ıs, pero solo para aquellos
 // pa ́ıses que tengan un rating promedio superior a 92.
+
 // 14. Encuentra los videojuegos que contengan la palabra “The” en el t ́ıtulo y que tengan un rating superior a 92.
 // Usa una expresi ́on regular y muestra t ́ıtulo, rating y desarrollador.
 // 15. Muestra los 3 g ́eneros con mayor promedio de copias vendidas. Debe aparecer el g ́enero y el promedio de ventas.
