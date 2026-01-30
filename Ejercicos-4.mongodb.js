@@ -126,7 +126,7 @@ db.videogames.aggregate([
   },
 ]);
 
-// 9. Muestra los desarrolladores que han creado m ́as de un videojuego en la colecci ́on. Muestra el nombre del
+// 9. Muestra los desarrolladores que han creado m as de un videojuego en la colecci ́on. Muestra el nombre del
 // desarrollador y la cantidad de juegos.
 
 db.videogames.aggregate([
@@ -142,9 +142,10 @@ db.videogames.aggregate([
     },
   },
 ]);
-// 10. Calcula el precio total que costar ́ıa comprar todos los videojuegos de cada plataforma. Considera que un juego
-// puede estar en m ́ultiples plataformas.
+// 10. Calcula el precio total que costarıa comprar todos los videojuegos de cada plataforma. Considera que un juego
+// puede estar en multiples plataformas.
 
+use("juegos");
 db.videogames.aggregate([
   {
     $unwind: {
@@ -157,10 +158,16 @@ db.videogames.aggregate([
       precio: { $sum: "$price" },
     },
   },
+  {
+    $project: {
+      _id: 1,
+      precio: { $round: ["$precio", 2] },
+    },
+  },
 ]);
 
-// 11. Encuentra los videojuegos con un precio inferior a 30 y que tengan al menos 2 premios. Muestra el t ́ıtulo, precio
-// y n ́umero de premios.
+// 11. Encuentra los videojuegos con un precio inferior a 30 y que tengan al menos 2 premios. Muestra el tıtulo, precio
+// y numero de premios.
 
 db.videogames.aggregate([
   {
@@ -196,6 +203,7 @@ db.videogames.aggregate([
     $limit: 1,
   },
 ]);
+
 // 13. Calcula el rating promedio de los videojuegos desarrollados por empresas de cada pa ́ıs, pero solo para aquellos
 // pa ́ıses que tengan un rating promedio superior a 92.
 db.videogames.aggregate([
@@ -302,14 +310,14 @@ print(`Average rating for FromSoftware games: ${media.toFixed(2)}`);
 db.videogames.find({ price: { $gt: 50 } }).forEach((game) => {
   print(`Title: ${game.title} - Price: $${game.price}`);
 });
-// 19. Usando un cursor, encuentra el videojuego con m ́as copias vendidas. Muestra el t ́ıtulo y las copias vendidas.
+// 19. Usando un cursor, encuentra el videojuego con m ́as copias vendidas. Muestra el tıtulo y las copias vendidas.
+use("juegos");
 let maxPrice = { copiesSold: 0 };
 db.videogames.find({}).forEach((game) => {
   if (game.copiesSold > maxPrice.copiesSold) {
     maxPrice = game;
   }
 });
-
 print(`Title: ${maxPrice.title} - Copys:${maxPrice.copiesSold}`);
 // 20. Usando un cursor, cuenta cu ́antos videojuegos hay de cada plataforma. Ten en cuenta que cada videojuego
 // puede tener m ́ultiples plataformas. Muestra el resultado con el formato:
